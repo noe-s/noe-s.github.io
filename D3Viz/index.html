@@ -25,7 +25,7 @@
             }
             let locations = [];
             const svg = d3.select('svg')
-                .attr('width', width).attr('height', height);
+                .attr('width', width).attr('height', height).attr('city',city);
             const markerGroup = svg.append('g');
             const projection = d3.geoOrthographic();
             const initialScale = projection.scale();
@@ -93,9 +93,8 @@
                         gdistance = d3.geoDistance(coordinate, projection.invert(center));
                         return gdistance > 1.57 ? 'none' : '#4ec3c7';
                     })
-
                     .attr('r', 7);
-
+                    
                 markerGroup.each(function () {
                     this.parentNode.appendChild(this);
                 });
