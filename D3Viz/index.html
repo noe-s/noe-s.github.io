@@ -81,7 +81,7 @@
 
             function drawMarkers() {
                 const markers = markerGroup.selectAll('circle')
-                      .data(locations);
+                    .data(locations);
                 markers
                     .enter()
                     .append('circle')
@@ -93,6 +93,7 @@
                         gdistance = d3.geoDistance(coordinate, projection.invert(center));
                         return gdistance > 1.57 ? 'none' : '#4ec3c7';
                     })
+
                     .attr('r', 7);
 
                 markerGroup.each(function () {
