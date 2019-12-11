@@ -25,7 +25,7 @@
             }
             let locations = [];
             const svg = d3.select('svg')
-                .attr('width', width).attr('height', height).attr('city',city);
+                .attr('width', width).attr('height', height);
             const markerGroup = svg.append('g');
             const projection = d3.geoOrthographic();
             const initialScale = projection.scale();
@@ -81,7 +81,7 @@
 
             function drawMarkers() {
                 const markers = markerGroup.selectAll('circle')
-                    .data(locations);
+                      .data(locations);
                 markers
                     .enter()
                     .append('circle')
@@ -94,7 +94,7 @@
                         return gdistance > 1.57 ? 'none' : '#4ec3c7';
                     })
                     .attr('r', 7);
-                    
+
                 markerGroup.each(function () {
                     this.parentNode.appendChild(this);
                 });
