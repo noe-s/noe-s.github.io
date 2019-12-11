@@ -6,11 +6,17 @@
         <script src="https://d3js.org/topojson.v1.min.js"></script>
 
         <style>
-          .labels {
-            font: 8px sans-serif;
-            fill: black;
-            opacity: 1;
-            cursor: pointer;
+          div.tooltip {
+              position: absolute;
+              text-align: center;
+              width: 80px;
+              height: 28px;
+              padding: 2px;
+              font: 15px sans-serif;
+              background: #4ec3c7;
+              border: 0px;
+              border-radius: 8px;
+              pointer-events: none;
           }
         </style>
 
@@ -31,6 +37,10 @@
             const initialScale = projection.scale();
             const path = d3.geoPath().projection(projection);
             const center = [width/2, height/2];
+            const div = d3.select("body").append("div")
+                            .attr("class","tooltip")
+                            .style("opacity", 0)
+
 /*
             const textLabels = text
                                .attr('x', function(d) { return d.cx; })
@@ -93,8 +103,21 @@
                         gdistance = d3.geoDistance(coordinate, projection.invert(center));
                         return gdistance > 1.57 ? 'none' : '#4ec3c7';
                     })
+                    .attr('r', 7)
+                    .on('mouseover', function(d) {
+                      div.transition()
+                          .duration(200)
+                          .style("opacity", .9);
+                      div.html([d.city])
+                         .style("left", (d3.event.pageX) + "px")
+                         .style("top", (d3.event.pageY - 28) + "px");
+                    })
+                    .on("mouseout", function(d) {
+                        div.transition()
+                           .duration(500)
+                           .style("opacity", 0);
+                    });
 
-                    .attr('r', 7);
 
                 markerGroup.each(function () {
                     this.parentNode.appendChild(this);
